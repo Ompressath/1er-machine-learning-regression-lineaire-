@@ -1,0 +1,384 @@
+###RÉGRESSION LINÉAIRE NUMPY - ML#8
+
+#CREATION DE PROGRAMME DE R2GRESSION LINAIRE AVEC NUMPY
+##https://www.youtube.com/watch?v=vG6tDQc86Rs
+
+1/ Importation des librairies
+
+import numpy as np
+from sklearn.datasets import make_regression
+import matplotlib.pyplot as plt
+
+2/ Datasets
+
+x,y=make_regression(n_samples=100, n_features=1, noise=10)
+x,y
+
+(array([[-4.39415891e-01],
+        [ 1.10719719e+00],
+        [ 5.68512666e-01],
+        [ 7.81865730e-01],
+        [-9.95779622e-01],
+        [ 4.37029843e-01],
+        [-1.25058827e+00],
+        [-1.47668657e+00],
+        [-5.07329865e-01],
+        [ 4.37999010e-01],
+        [-1.44549554e-01],
+        [ 4.49050156e-01],
+        [ 3.37243691e-01],
+        [ 1.75345534e+00],
+        [ 7.91037808e-01],
+        [ 1.55457600e+00],
+        [-9.56582616e-01],
+        [ 2.58268417e+00],
+        [-1.63120036e+00],
+        [ 7.53152831e-02],
+        [-6.61466229e-01],
+        [-5.30472063e-01],
+        [ 3.05657269e+00],
+        [-8.20779508e-01],
+        [-1.17259277e+00],
+        [ 3.96271310e-01],
+        [-1.65682889e+00],
+        [-1.13132214e+00],
+        [ 9.46368283e-01],
+        [ 6.70042545e-01],
+        [ 3.36552291e-01],
+        [ 8.35383390e-01],
+        [-1.40882000e+00],
+        [-7.50818408e-02],
+        [-7.21747302e-01],
+        [ 1.94871019e+00],
+        [ 1.23748931e+00],
+        [-9.84484616e-01],
+        [ 4.53590805e-01],
+        [ 3.90683482e-01],
+        [ 9.91205226e-01],
+        [-1.29760825e+00],
+        [-9.47638311e-01],
+        [-9.51517111e-01],
+        [ 6.22680865e-01],
+        [-1.15461331e-02],
+        [ 1.69745212e-01],
+        [-1.92898061e-01],
+        [ 8.41600081e-01],
+        [-3.69762509e-01],
+        [-1.57620729e+00],
+        [ 1.35109089e+00],
+        [-3.55475777e-01],
+        [-1.69233389e+00],
+        [-1.22790261e+00],
+        [ 1.16297724e+00],
+        [ 3.27578795e-01],
+        [ 4.41324717e-01],
+        [ 1.44150824e+00],
+        [-8.76152401e-01],
+        [ 9.32407302e-01],
+        [-6.16927262e-03],
+        [ 7.45275014e-01],
+        [ 1.09087069e+00],
+        [ 6.12969767e-01],
+        [ 6.88102702e-01],
+        [ 4.75242719e-01],
+        [ 1.25132798e-01],
+        [-7.81930583e-01],
+        [-3.18666378e-01],
+        [ 6.45456283e-02],
+        [-2.76469149e-01],
+        [ 9.38816125e-02],
+        [ 9.60200268e-04],
+        [-1.33935277e-01],
+        [-4.80976699e-01],
+        [-4.84893723e-01],
+        [-9.64563892e-01],
+        [ 4.20804492e-01],
+        [ 1.32730866e+00],
+        [ 6.51595795e-01],
+        [ 6.28224556e-01],
+        [ 1.26091856e+00],
+        [ 1.35855893e-01],
+        [ 1.24469868e-01],
+        [-3.14548730e-01],
+        [-4.17514697e-01],
+        [-2.74380340e-01],
+        [-5.36442283e-01],
+        [ 8.00023204e-02],
+        [ 1.19514574e+00],
+        [-1.64006623e+00],
+        [ 1.75810018e+00],
+        [ 1.05319363e+00],
+        [-6.86498622e-01],
+        [ 1.74025820e+00],
+        [-1.55263449e+00],
+        [-4.18644614e-01],
+        [-3.89023899e-02],
+        [-2.17474924e-01]]),
+ array([ -8.74843299,  59.71115953,  28.10990745,  26.85394647,
+        -42.3696902 ,  14.65767823, -62.91730401, -47.27174311,
+        -28.28910533,  14.04660446,  13.18194423,  27.23960175,
+         21.54787003,  69.88586845,  32.16941926,  44.03113369,
+        -60.62944986, 122.46483713, -66.99186909,  -1.38500043,
+        -25.74588258, -19.96445233, 113.3147238 , -22.26427516,
+        -47.25332271,  28.7404115 , -71.45871924, -36.15893277,
+         27.24842054,  35.91584117,  24.7282546 ,  35.44813975,
+        -70.55788423,   3.03429807, -38.21176379,  68.03364783,
+         47.59394304, -44.83177672,  20.24339294,   8.10510066,
+         40.18608454, -47.32045917, -34.34493428, -45.83160933,
+         29.80985908,  -0.51942931,  15.05954543,  -3.44677243,
+         30.58286866, -24.86363789, -64.50231037,  65.7182063 ,
+        -21.17657194, -78.52887606, -55.84073674,  46.31014265,
+         30.85721561,  26.79347944,  60.70557852, -28.48417895,
+         26.03964676,  -6.95797791,  23.85356583,  44.11078944,
+         20.08327917,  22.75340171,  10.87668577,   1.63208925,
+        -42.88129596,  -7.14012292,   1.95673795,  -3.62949621,
+          6.9850742 , -10.45841948,  12.61094372, -31.6485909 ,
+        -13.5513125 , -34.27964032,  17.02745553,  43.90332764,
+         33.56841064,  25.3955833 ,  55.45073776,   9.69844978,
+         19.90024561, -24.68794835, -25.1541301 , -18.83952687,
+        -11.53873809,   5.05276685,  43.78378218, -76.08111585,
+         69.1813139 ,  43.6359053 , -34.6730462 ,  73.19917988,
+        -59.51867456, -15.84801568,  -7.90532297, -24.79017328]))
+
+#Affiche le datasets x et y
+
+plt.scatter(x,y)
+
+<matplotlib.collections.PathCollection at 0x23ec2cb72e0>
+
+#Vérification des dimensiosn de x et Y 
+print(x.shape)
+print(y.shape)
+
+(100, 1)
+(100,)
+
+y=y.reshape(y.shape[0],1)
+print(y.shape)
+
+(100, 1)
+
+#Creation de la matrice X
+
+X=np.hstack((x,np.ones(x.shape))) # la fonction hstack permetd e coller deux matrices
+X.shape
+
+(100, 2)
+
+#Initilisation du vecteur theta (a,b)
+theta=np.random.randn(2,1)
+theta
+#theta.shape
+
+array([[ 1.02529951],
+       [-1.2500191 ]])
+
+3/ creation du Modèle linéaire
+
+#Creation de la fonction f(x,y) ou F=X.theta
+
+def model(X,theta):
+    return X.dot(theta)
+
+#Tester le modele
+model(X,theta)
+
+array([[-1.700552  ],
+       [-0.11481036],
+       [-0.66712334],
+       [-0.44837255],
+       [-2.27099146],
+       [-0.80193261],
+       [-2.53224664],
+       [-2.76406512],
+       [-1.77018416],
+       [-0.80093893],
+       [-1.39822569],
+       [-0.78960819],
+       [-0.90424331],
+       [ 0.54779781],
+       [-0.43896842],
+       [ 0.34388691],
+       [-2.23080279],
+       [ 1.39800572],
+       [-2.92248803],
+       [-1.17279838],
+       [-1.9282201 ],
+       [-1.79391185],
+       [ 1.88388339],
+       [-2.09156393],
+       [-2.4522779 ],
+       [-0.84372232],
+       [-2.94876495],
+       [-2.40996313],
+       [-0.27970816],
+       [-0.5630248 ],
+       [-0.9049522 ],
+       [-0.39350092],
+       [-2.69448156],
+       [-1.32700047],
+       [-1.99002625],
+       [ 0.74799251],
+       [ 0.01877808],
+       [-2.25941069],
+       [-0.78495267],
+       [-0.84945151],
+       [-0.23373686],
+       [-2.5804562 ],
+       [-2.2216322 ],
+       [-2.22560913],
+       [-0.61158471],
+       [-1.26185734],
+       [-1.07597942],
+       [-1.44779739],
+       [-0.38712695],
+       [-1.62913642],
+       [-2.86610366],
+       [ 0.13525373],
+       [-1.61448824],
+       [-2.98516821],
+       [-2.50898704],
+       [-0.05761911],
+       [-0.91415272],
+       [-0.79752908],
+       [ 0.2279586 ],
+       [-2.14833773],
+       [-0.29402235],
+       [-1.25634445],
+       [-0.48588899],
+       [-0.13154991],
+       [-0.6215415 ],
+       [-0.54450773],
+       [-0.76275297],
+       [-1.1217205 ],
+       [-2.05173214],
+       [-1.57674758],
+       [-1.1838405 ],
+       [-1.53348278],
+       [-1.15376233],
+       [-1.24903461],
+       [-1.38734287],
+       [-1.74316427],
+       [-1.7471804 ],
+       [-2.23898599],
+       [-0.81856846],
+       [ 0.11086982],
+       [-0.58193825],
+       [-0.60590077],
+       [ 0.04280009],
+       [-1.11072612],
+       [-1.1224002 ],
+       [-1.57252576],
+       [-1.67809671],
+       [-1.53134113],
+       [-1.80003311],
+       [-1.16799276],
+       [-0.02463675],
+       [-2.93157821],
+       [ 0.55256016],
+       [-0.17018018],
+       [-1.9538858 ],
+       [ 0.53426678],
+       [-2.84193449],
+       [-1.67925522],
+       [-1.2899057 ],
+       [-1.47299603]])
+
+#Vérification graphique du modele
+plt.scatter(x,y, c='g')
+plt.plot(x,model(X,theta),c='r')
+
+[<matplotlib.lines.Line2D at 0x23ec00ec3d0>]
+
+4/ Fonction Coût
+
+#C'est erreur quadratique moyenne : J(theta)= 1/(2m)*somme(X.theta-Y)²
+
+#Creation de la fonction cost_funtion
+
+def cost_function(X,y,theta):
+    m = len(y)
+    return 1/(2*m)*np.sum((model(X,theta)-y)**2)
+
+#Tester de la fonction cout
+
+cost_function(X,y,theta) # Il faut que cela tend vers 0
+
+815.6646395990743
+
+5/ ALGORITHME DE MINIMISATION : creation des Gradients
+
+##Creation de la fonction pour calculer le gradient
+#dj(theta)/d(theta)= 1/m.somme(Xt.(X.theta-Y))
+
+def grad(X,y,theta):
+    m=len(y)
+    return 1/(m)* X.T.dot(model(X,theta)-y)
+
+6/ Descente de gradients
+
+### creation de la fonction de descente de Gradients
+#theta=theta-alpha(dj(theta)/d(theta))
+#alpha=learning_rate
+
+def gradient_descent(X,y,theta,learning_rate,n_iterations):
+    for i in range(0,n_iterations):
+        theta=theta-learning_rate*grad(X,y,theta)
+        
+    return theta
+
+7/ Entrainement du modèle: C'est le Machine Learning
+
+theta_final=gradient_descent(X,y,theta, learning_rate=0.01,n_iterations=)
+
+theta_final
+
+array([[41.12612486],
+       [-0.39303083]])
+
+#Vérification du modele : vecteur predictions
+predictions=model(X,theta_final)
+
+#Affichage dataset et vecteur de prediction
+
+plt.scatter(x,y, c='g')
+plt.plot(x,predictions,c='r')
+
+[<matplotlib.lines.Line2D at 0x23ec4d27a90>]
+
+8/Courbe d'apprentissage
+
+#voir si la machine reussit à bien apprendre avec la variable cost_history dans le gradient
+
+def gradient_descent(X,y,theta,learning_rate,n_iterations):
+    cost_history=np.zeros(n_iterations)
+    for i in range(0,n_iterations):
+        theta=theta-learning_rate*grad(X,y,theta)
+        cost_history[i]=cost_function(X,y,theta)
+        
+    return theta, cost_history
+
+theta_final, cost_history=gradient_descent(X,y,theta, learning_rate=0.01,n_iterations=1000)
+
+#Affichae de la courbe d'apprentissage
+
+plt.plot(range(1000), cost_history)
+
+[<matplotlib.lines.Line2D at 0x23ec4d89d00>]
+
+9/ Evaluation du modèle: coefficient de détermination R² doit etre proche de 1
+
+#Plus le R² est proche de 1, plus il rentre dans le nuage de points
+#méthode des moindres carré
+#R²=1-(Somme(y-fx)²/somme(Y-f(moyenne de X)²))
+
+def coef_determination(y,pred):
+    u=((y-pred)**2).sum()
+    v=((y-y.mean())**2).sum()
+    return 1-(u/v)
+
+coef_determination(y,predictions)
+
+0.9570372191407516
+
+C'est un bon modèle!
